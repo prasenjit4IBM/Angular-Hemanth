@@ -6,7 +6,7 @@ const Review = (props) => {
         <div className="alert alert-info">
             <span className="badge badge-primary">{review.stars}</span>
             &mdash;
-            <span className="badge badge-primary">{review.author}</span>
+            <span>{review.author}</span>
             <hr />
             <div>{review.body}</div>
         </div>

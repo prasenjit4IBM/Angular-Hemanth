@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Item from './components/Item';
 import Navabar from './components/Navabar';
+import CartView from './components/CartView';
 
 function App() {
 
@@ -25,18 +26,30 @@ function App() {
   ]
 
   const [cart, setCart] = useState([]);
+  const [isCartOpen, setCartOpen] = useState(false);
+
+  const toggleCart = e => {
+    e.preventDefault();
+    setCartOpen(!isCartOpen)
+  }
 
   const addToCart = e => {
     let { item } = e;
     setCart([...cart, item])
   }
 
+  const renderCart = () => {
+    if (isCartOpen)
+      return <CartView value={cart} />
+  }
+
   const renderItems = (items) => {
-    return items.map(item => {
-      return (
-        <Item value={item} key={item.id} onBuy={e => addToCart(e)} />
-      )
-    })
+    if (!isCartOpen)
+      return items.map(item => {
+        return (
+          <Item value={item} key={item.id} onBuy={e => addToCart(e)} />
+        )
+      })
   }
 
 
@@ -46,6 +59,14 @@ function App() {
       <hr />
       <span className="badge badge-danger">{cart.length}</span>
       item(s) in cart
+      <hr />
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link" onClick={e => toggleCart(e)} href="/">{isCartOpen ? 'items' : 'cart'}</a>
+        </li>
+      </ul>
+      <hr />
+      {renderCart()}
       <hr />
       {renderItems(items)}
     </div>

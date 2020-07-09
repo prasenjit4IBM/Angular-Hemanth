@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import Review from './Review';
+import ReviewForm from './ReviewForm';
 
 const Item = (props) => {
 
     const [tab, setTab] = useState(1)
-    const { value: item } = props
-
-    const reviews = [
+    const [reviews, setReviews] = useState([
         { stars: 5, body: 'sample-review-1', author: 'Nag@mail.com' },
         { stars: 3, body: 'sample-review-2', author: 'Hemanth@mail.com' }
-    ]
+    ])
+    const { value: item } = props
+
 
     const changeTab = (e, tabIndex) => {
         e.preventDefault()
@@ -19,6 +20,11 @@ const Item = (props) => {
     const handleBuyBtnClick = e => {
         let { onBuy } = props;
         onBuy({ item })
+    }
+
+    const handleNewReview = e => {
+        let { review } = e
+        setReviews([review, ...reviews])
     }
 
     const renderBuyBtn = (item) => {
@@ -41,7 +47,13 @@ const Item = (props) => {
         switch (tab) {
             case 1: return (<div>{item.description}</div>)
             case 2: return (<div>Not Yet</div>)
-            case 3: return (<div>{renderReviews()}</div>)
+            case 3: return (
+                <div>
+                    {renderReviews()}
+                    <hr />
+                    <ReviewForm onSubmit={e => handleNewReview(e)} />
+                </div>
+            )
             default: return null
         }
     }
