@@ -1,0 +1,12 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mongo-db": {
+    "url": "mongodb+srv://user3:user33@cluster0-socov.mongodb.net/shop-db?retryWrites=true&w=majority",
+    "name": "mongo-db",
+    "useNewUrlParser": true,
+    "connector": "mongodb"
+  }
+}
